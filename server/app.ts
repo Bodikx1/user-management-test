@@ -46,7 +46,7 @@ class App {
     });
 
     this.express.get('/api/users/by-field', (req, res, next) => {
-      // this.userController.getUsers(req, res, next);
+      this.userController.getUsersByField(req, res, next);
     });
 
     this.express.patch('/api/users/status', (req, res, next) => {

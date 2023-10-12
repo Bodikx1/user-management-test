@@ -11,4 +11,8 @@ export class UserService {
   async getUsers(options: GetUsersOptions) {
     return await this.userRepository.getUsers(options);
   }
+
+  async getUsersByField(options: GetUsersOptions) {
+    return await this.userRepository.getAllUsersByField(options);
+  }
 }

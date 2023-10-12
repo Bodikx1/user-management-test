@@ -9,9 +9,21 @@ export class UserRepository {
 
   async getUsers(options: GetUsersOptions) {
     const { pagination } = options;
-    let users = [];
+    const limit = pagination?.perPage || 0;
+    const skip = (pagination?.pageNumber - 1) * limit || 0;
 
-    users = await UserModel.find();
+    const users = await UserModel.find().skip(skip).limit(limit);
+
+    return users;
+  }
+
+  async getAllUsersByField(options: GetUsersOptions) {
+    const { filterBy } = options;
+    const fieldName = filterBy?.fieldName || 'name';
+    const fieldValue = filterBy?.fieldValue || '';
+
+    const users = await UserModel.find({ [fieldName]: { $regex: fieldValue, $options: 'i' } });
+
     return users;
   }
 }
