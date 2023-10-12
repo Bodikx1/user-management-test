@@ -1,11 +1,6 @@
 import { model, Schema, Model, Document, Types } from 'mongoose';
 import validator from 'validator';
-
-export interface IUser extends Document {
-  name: string;
-  email: string;
-  status: 'active' | 'pending' | 'blocked';
-}
+import { IUser } from '../repository/types';
 
 const UserSchema: Schema = new Schema(
   {

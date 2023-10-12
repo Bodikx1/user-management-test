@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
 import { connect, disconnect } from '../config/db.config';
-import { IUser, UserModel } from '../models/user.model';
+import { UserModel } from '../models/user.model';
 import { GetUsersOptions, UpdateUsersStatusDataItem } from './types';
 
 export class UserRepository {
@@ -30,7 +29,7 @@ export class UserRepository {
 
   async updateUsersStatus(userData: Array<UpdateUsersStatusDataItem>) {
     const userDataByStatus = userData.reduce((acc, dataItem: UpdateUsersStatusDataItem) => {
-      const id = new mongoose.Types.ObjectId(dataItem.id);
+      const id = dataItem.id;
       const status = dataItem.status;
 
       if (!acc[status]) {
