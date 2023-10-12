@@ -49,8 +49,8 @@ class App {
       this.userController.getUsersByField(req, res, next);
     });
 
-    this.express.patch('/api/users/status', (req, res, next) => {
-      // this.userController.updateUser(req, res, next);
+    this.express.put('/api/users/statuses', (req, res, next) => {
+      this.userController.updateUsersStatus(req, res, next);
     });
 
     this.express.delete('/api/user/:id/group/:groupId', (req, res, next) => {

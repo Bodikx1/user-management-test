@@ -23,7 +23,7 @@ const UserSchema: Schema = new Schema(
       validate: (email: string) => validator.isEmail(email),
       set: (email: string) => email.toLowerCase(),
     },
-    style: {
+    status: {
       type: String,
       required: true,
       default: 'active',
