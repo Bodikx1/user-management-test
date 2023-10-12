@@ -12,7 +12,7 @@ export class UserRepository {
     const limit = pagination?.perPage || 0;
     const skip = (pagination?.pageNumber - 1) * limit || 0;
 
-    const users = await UserModel.find().skip(skip).limit(limit);
+    const users = await UserModel.find().populate('group').skip(skip).limit(limit);
 
     return users;
   }
@@ -22,7 +22,7 @@ export class UserRepository {
     const fieldName = filterBy?.fieldName || 'name';
     const fieldValue = filterBy?.fieldValue || '';
 
-    const users = await UserModel.find({ [fieldName]: { $regex: fieldValue, $options: 'i' } });
+    const users = await UserModel.find({ [fieldName]: { $regex: fieldValue, $options: 'i' } }).populate('group');
 
     return users;
   }
@@ -63,5 +63,21 @@ export class UserRepository {
     }
 
     return userData;
+  }
+
+  async deleteUserFromGroup(userId: string, groupId: string) {
+    const user = await UserModel.findById(userId).populate('group').exec();
+    const group = user.group as any;
+
+    if (group?._id?.toString() !== groupId) {
+      throw new Error('No such group');
+    }
+
+    // unset user group
+    user.group = null;
+
+    const result = await UserModel.updateOne({ _id: userId }, user);
+
+    return result;
   }
 }

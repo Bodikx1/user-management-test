@@ -44,4 +44,12 @@ export class UserController {
       users,
     });
   }
+
+  async deleteUserFromGroup(req: Request, res: Response, next: NextFunction): Promise<any> {
+    const { userId, groupId } = req.params;
+
+    await this.userService.deleteUserFromGroup(userId, groupId);
+
+    return handleResponse(res, 200, 'User was successfully deleted from group', {});
+  }
 }

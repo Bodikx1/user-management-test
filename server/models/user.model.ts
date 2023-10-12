@@ -1,4 +1,4 @@
-import { model, Schema, Model, Document, Types } from 'mongoose';
+import { model, Schema, Model, Types } from 'mongoose';
 import validator from 'validator';
 import { IUser } from '../repository/types';
 
@@ -24,6 +24,7 @@ const UserSchema: Schema = new Schema(
       default: 'active',
       enum: ['active', 'pending', 'blocked'],
     },
+    group: { type: Types.ObjectId, ref: 'Group', required: false },
   },
   { timestamps: true }
 );

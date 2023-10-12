@@ -53,8 +53,8 @@ class App {
       this.userController.updateUsersStatus(req, res, next);
     });
 
-    this.express.delete('/api/user/:id/group/:groupId', (req, res, next) => {
-      // this.userController.deleteUserFromGroup(req, res, next);
+    this.express.delete('/api/user/:userId/group/:groupId', (req, res, next) => {
+      this.userController.deleteUserFromGroup(req, res, next);
     });
 
     // handle undefined routes

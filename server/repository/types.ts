@@ -2,6 +2,13 @@ export interface IUser extends Document {
   name: string;
   email: string;
   status: 'active' | 'pending' | 'blocked';
+  group?: IGroup | null;
+}
+
+export interface IGroup extends Document {
+  name: string;
+  status: 'empty' | 'notEmpty';
+  users: Array<IUser>;
 }
 
 export interface GetUsersOptions {
