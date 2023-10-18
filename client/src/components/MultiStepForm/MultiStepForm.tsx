@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import './MultiStepForm.css';
 
+import Tabs from './Tabs';
+
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Summary from './Summary';
 
 const StepComponentMap: any = {
-  'step-1': Step1,
-  'step-2': Step2,
-  'step-3': Summary,
+  'Step 1': Step1,
+  'Step 2': Step2,
+  'Step 3': Summary,
 };
 
-const MultiStepForm = ({ showForm }: { showForm: boolean }) => {
+const MultiStepForm = ({ isHidden, onClose }: { isHidden: boolean; onClose: Function }) => {
   const [step, setStep] = useState(1);
 
   const handleNext = () => {
@@ -22,33 +24,27 @@ const MultiStepForm = ({ showForm }: { showForm: boolean }) => {
     setStep(step - 1);
   };
 
-  const handleFinish = () => {};
+  const handleFinish = () => {
+    onClose();
+    setStep(1);
+  };
 
-  const StepComponent = StepComponentMap[`step-${step}`];
+  const stepKeys = Object.keys(StepComponentMap);
+  const StepComponent = StepComponentMap[`Step ${step}`];
 
   return (
-    <div className={`${showForm ? 'block' : 'hidden'} modal-container`}>
+    <div className={`${isHidden ? 'hidden' : 'block'} modal-container`}>
       <div className='flex items-center justify-center h-screen'>
         <div className='bg-white p-6 rounded-lg shadow-md w-full lg:max-w-xl'>
           <h2 className='text-lg font-medium mb-4'>Step {step} of 2</h2>
-          <div className='flex mb-4'>
-            <div
-              className={`w-1/2 border-r border-gray-400 ${
-                step === 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'
-              } p-2 text-center cursor-pointer`}
-              onClick={() => setStep(1)}
-            >
-              Step 1
-            </div>
-            <div
-              className={`w-1/2 ${
-                step === 2 ? 'bg-blue-500 text-white' : 'bg-gray-200'
-              } p-2 text-center cursor-pointer`}
-              onClick={() => setStep(2)}
-            >
-              Step 2
-            </div>
-          </div>
+
+          <Tabs
+            tabs={stepKeys}
+            activeIndex={step}
+            onSetActive={(index: number) => {
+              setStep(index);
+            }}
+          />
 
           <StepComponent />
 
