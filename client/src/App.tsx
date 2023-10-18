@@ -1,24 +1,24 @@
-import React from 'react';
+import { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MultiStepForm from './components/MultiStepForm/MultiStepForm';
 
 function App() {
+  const [showForm, setShowForm] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className='App'>
+      <header className='App-header'>
+        <img src={logo} className='App-logo' alt='logo' />
+        <p className='text-3xl font-bold mb-10'>User Info Stepper</p>
+        <button
+          className='bg-blue-500 px-6 py-1.5 rounded-lg text-white hover:bg-blue-600'
+          onClick={() => setShowForm(true)}
         >
-          Learn React
-        </a>
+          Start
+        </button>
       </header>
+      <MultiStepForm showForm={showForm} />
     </div>
   );
 }
