@@ -89,7 +89,9 @@ const MultiStepForm = ({ isHidden, onClose }: { isHidden: boolean; onClose: Func
     <div className={`${isHidden ? 'hidden' : 'block'} modal-container`}>
       <div className='flex items-center justify-center h-screen'>
         <div className='bg-white p-6 rounded-lg shadow-md w-full lg:max-w-xl'>
-          <h2 className='text-lg font-medium mb-4'>Step {step} of 2</h2>
+          <h2 className='text-lg font-medium mb-4'>
+            Step {step} of {stepKeys.length}
+          </h2>
 
           <Tabs
             tabs={stepKeys}
