@@ -1,14 +1,4 @@
-import { useState, useEffect } from 'react';
-
-const Summary = ({}) => {
-  // useEffect(() => {
-  //   // console.log(planPrice);
-  //   // console.log(addonsPrice);
-  //   // console.log(grandTotal);
-  //   // console.log(selectedPlan);
-  //   // console.log(selectedAddons);
-  // }, [selectedPlan, selectedAddons]);
-
+const Summary = ({ stepData }: { stepData: any }) => {
   return (
     <>
       <div className='mb-8'>
@@ -17,9 +7,15 @@ const Summary = ({}) => {
       </div>
       <div className='mb-8'>
         <div className='bg-[#f0f6ff] rounded-xl p-5 mb-5'>
-          <div className='font-medium text-[#02295a] flex justify-between items-center mb-3'>
+          <div className='font-medium text-[#02295a] flex-center items-center mb-3'>
             <div className='mb-5'>
-              <p>some data</p>
+              {Object.keys(stepData).map((key) => {
+                return (
+                  <p key={key}>
+                    {key}: {stepData[key]}
+                  </p>
+                );
+              })}
             </div>
           </div>
         </div>
